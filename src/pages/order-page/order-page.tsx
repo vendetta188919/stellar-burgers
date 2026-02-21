@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
+import { Preloader } from '@ui';
+import { OrderInfoUI } from '@ui';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
 import {
@@ -10,8 +10,9 @@ import {
   ingredientsSelector,
   orderByNumberSelector
 } from '../../services/slices';
+import styles from './order-page.module.css';
 
-export const OrderInfo: FC = () => {
+export const OrderPage: FC = () => {
   const dispatch = useDispatch();
   const { number } = useParams();
   const orderNumber = Number(number);
@@ -27,7 +28,6 @@ export const OrderInfo: FC = () => {
     dispatch(getOrderByNumber(orderNumber));
   }, [dispatch, orderNumber, routeOrder]);
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
@@ -73,5 +73,9 @@ export const OrderInfo: FC = () => {
     return <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  return (
+    <div className={styles.container}>
+      <OrderInfoUI orderInfo={orderInfo} />
+    </div>
+  );
 };

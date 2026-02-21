@@ -62,4 +62,4 @@ export const {
 } = ingredientsSlice.selectors;
 
 export const ingredientByIdSelector = (id?: string) => (state: RootState) =>
-  state.ingredients.items.find((item) => item._id === id); 
+  state.ingredients.items.find((item) => item._id === id);
