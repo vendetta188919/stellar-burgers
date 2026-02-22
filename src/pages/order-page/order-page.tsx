@@ -8,7 +8,8 @@ import {
   currentOrderSelector,
   getOrderByNumber,
   ingredientsSelector,
-  orderByNumberSelector
+  orderByNumberSelector,
+  orderLoadingSelector
 } from '../../services/slices';
 import styles from './order-page.module.css';
 
@@ -20,6 +21,7 @@ export const OrderPage: FC = () => {
   const routeOrder = useSelector(orderByNumberSelector(orderNumber));
   const orderData = routeOrder || currentOrder;
   const ingredients: TIngredient[] = useSelector(ingredientsSelector);
+  const isLoading = useSelector(orderLoadingSelector);
 
   useEffect(() => {
     if (Number.isNaN(orderNumber) || routeOrder) {
@@ -69,8 +71,20 @@ export const OrderPage: FC = () => {
     };
   }, [orderData, ingredients]);
 
-  if (!orderInfo) {
+  // Показываем загрузку, пока идёт запрос или пока не загружены ингредиенты
+  // (нужны для отображения состава заказа)
+  if (isLoading || ingredients.length === 0) {
     return <Preloader />;
+  }
+
+  if (!orderInfo) {
+    return (
+      <div className={styles.container}>
+        <p className='text text_type_main-medium text_color_inactive'>
+          Заказ не найден
+        </p>
+      </div>
+    );
   }
 
   return (
