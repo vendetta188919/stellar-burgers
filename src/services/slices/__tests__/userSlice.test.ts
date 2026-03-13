@@ -3,7 +3,8 @@ import {
   checkUserAuth,
   loginUser,
   registerUser,
-  logoutUser
+  logoutUser,
+  initialState
 } from '../userSlice';
 import { TUser } from '@utils-types';
 
@@ -13,18 +14,6 @@ describe('userSlice', () => {
   const mockUser: TUser = {
     email: 'test@example.com',
     name: 'Test User'
-  };
-
-  const initialState = {
-    user: null,
-    isAuthChecked: false,
-    loading: false,
-    error: null,
-    loginError: null,
-    registerError: null,
-    updateUserError: null,
-    forgotPasswordError: null,
-    resetPasswordError: null
   };
 
   describe('checkUserAuth', () => {

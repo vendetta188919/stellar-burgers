@@ -1,4 +1,4 @@
-import { feedSlice, getFeeds } from '../feedSlice';
+import { feedSlice, getFeeds, initialState } from '../feedSlice';
 import { TOrder } from '@utils-types';
 
 const reducer = feedSlice.reducer;
@@ -29,14 +29,6 @@ describe('feedSlice', () => {
     orders: mockOrders,
     total: 100,
     totalToday: 10
-  };
-
-  const initialState = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    loading: false,
-    error: null
   };
 
   describe('getFeeds pending', () => {

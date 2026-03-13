@@ -1,4 +1,9 @@
-import { orderSlice, createOrder, getOrderByNumber } from '../orderSlice';
+import {
+  orderSlice,
+  createOrder,
+  getOrderByNumber,
+  initialState
+} from '../orderSlice';
 import { TOrder } from '@utils-types';
 
 const reducer = orderSlice.reducer;
@@ -12,14 +17,6 @@ describe('orderSlice', () => {
     updatedAt: '2024-01-01T00:00:00.000Z',
     number: 12345,
     ingredients: ['ingredient-1', 'ingredient-2']
-  };
-
-  const initialState = {
-    orderRequest: false,
-    orderModalData: null,
-    currentOrder: null,
-    loading: false,
-    error: null
   };
 
   describe('createOrder pending', () => {

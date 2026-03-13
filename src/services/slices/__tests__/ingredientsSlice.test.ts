@@ -1,4 +1,8 @@
-import { ingredientsSlice, getIngredients } from '../ingredientsSlice';
+import {
+  ingredientsSlice,
+  getIngredients,
+  initialState
+} from '../ingredientsSlice';
 import { TIngredient } from '@utils-types';
 
 const reducer = ingredientsSlice.reducer;
@@ -33,12 +37,6 @@ describe('ingredientsSlice', () => {
     }
   ];
 
-  const initialState = {
-    items: [] as TIngredient[],
-    loading: false,
-    error: null as string | null
-  };
-
   describe('getIngredients pending', () => {
     it('должен устанавливать loading в true при запросе', () => {
       const action = { type: getIngredients.pending.type };
@@ -64,9 +62,9 @@ describe('ingredientsSlice', () => {
 
     it('должен заменять старые ингредиенты новыми', () => {
       const stateWithData = {
+        ...initialState,
         items: [{ ...mockIngredients[0], name: 'Старая булка' }],
-        loading: true,
-        error: null as string | null
+        loading: true
       };
 
       const action = {

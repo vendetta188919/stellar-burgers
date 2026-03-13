@@ -1,4 +1,4 @@
-import { ordersSlice, getOrders } from '../ordersSlice';
+import { ordersSlice, getOrders, initialState } from '../ordersSlice';
 import { TOrder } from '@utils-types';
 
 const reducer = ordersSlice.reducer;
@@ -24,12 +24,6 @@ describe('ordersSlice', () => {
       ingredients: ['ingredient-1', 'ingredient-2']
     }
   ];
-
-  const initialState = {
-    orders: [],
-    loading: false,
-    error: null
-  };
 
   describe('getOrders pending', () => {
     it('должен устанавливать loading в true при запросе', () => {
