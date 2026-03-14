@@ -147,8 +147,14 @@ describe('Конструктор бургера', () => {
       // Устанавливаем моковые токены авторизации
       cy.window().then((win) => {
         win.localStorage.setItem('refreshToken', 'mock-refresh-token');
-        document.cookie = 'accessToken=mock-access-token';
       });
+      cy.setCookie('accessToken', 'mock-access-token');
+
+      // Перезагружаем страницу, чтобы приложение подхватило токены
+      cy.reload();
+
+      // Ждем загрузки ингредиентов после перезагрузки
+      cy.wait('@getIngredients');
     });
 
     afterEach(() => {
@@ -188,10 +194,11 @@ describe('Конструктор бургера', () => {
       // Проверяем, что модальное окно закрылось
       cy.get(SELECTORS.modal).should('not.exist');
 
-      // Проверяем, что конструктор пуст
+      // Проверяем, что конструктор пуст (показываются placeholder'ы)
       cy.get(SELECTORS.constructorBunTop).should('not.exist');
-      cy.get(SELECTORS.constructorFilling).should('not.exist');
       cy.get(SELECTORS.constructorBunBottom).should('not.exist');
+      // Проверяем, что в списке начинок показывается placeholder
+      cy.get(SELECTORS.constructorFilling).should('contain', 'Выберите начинку');
     });
   });
 });
